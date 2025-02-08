@@ -33,4 +33,42 @@ model users {
   role              String
   createdAt         DateTime      @default(now())
   updatedAt         DateTime      @updatedAt
+
+  product          products[]
+}
+
+model categories {
+  id                Int           @id @default(autoincrement())
+  name              String        @unique
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  product           products[]
+}
+
+model products {
+  id                Int           @id @default(autoincrement())
+  name              String
+  description       String?
+  categoryId        Int
+  userId            Int
+  stock             Int           @default(0)
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  category          categories?   @relation(fields: [categoryId],references: [id])
+  user              users         @relation(fields: [userId],references: [id])
+
+  userPrice         userPrice[]
+}
+
+model userPrice {
+  id                Int           @id @default(autoincrement())
+  productId         Int
+  role              String
+  price             Int
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+  product           products      @relation(fields: [productId],references: [id])
+
+  @@unique([productId,role])
 }

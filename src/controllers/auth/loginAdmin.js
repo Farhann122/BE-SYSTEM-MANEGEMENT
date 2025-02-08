@@ -37,6 +37,7 @@ async function login(req = request, res = response) {
       status: "success",
       msg: "Login successfully",
       token: token,
+      username: findUser.username,
       role: findUser.role,
     });
   } catch (error) {
