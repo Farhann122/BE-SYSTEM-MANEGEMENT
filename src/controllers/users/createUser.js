@@ -5,6 +5,7 @@ async function createUser(req = request, res = response) {
   const { fullname, address, phoneNumber, role } = req.body;
 
   try {
+    const roleUpper = role.toUpperCase();
     // validasi nama dan nomor telepon
     const existFullnameAndPhoneNumber = await db.users.findFirst({
       where: {
@@ -25,7 +26,7 @@ async function createUser(req = request, res = response) {
         fullname,
         address,
         phoneNumber,
-        role,
+        role: roleUpper,
       },
     });
     res.status(200).json({

@@ -38,7 +38,7 @@ async function login(req = request, res = response) {
       msg: "Login successfully",
       token: token,
       username: findUser.username,
-      role: findUser.role,
+      role: findUser.role.toUpperCase(),
     });
   } catch (error) {
     res.status(500).json({

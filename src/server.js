@@ -4,6 +4,7 @@ import env from "dotenv";
 import testRoute from "./routes/testRoute";
 import authRoute from "./routes/authRoute";
 import categoryRoute from "./routes/categoryRoute";
+import productRoute from "./routes/productRoute";
 
 // configuration
 const app = express();
@@ -27,6 +28,7 @@ app.use(
 app.use(testRoute);
 app.use(authRoute);
 app.use(categoryRoute);
+app.use(productRoute);
 
 // start server
 app.listen(PORT, () => {

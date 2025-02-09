@@ -53,7 +53,6 @@ async function updateAdmin(req = request, res = response) {
         password: passwordHash,
         address,
         phoneNumber,
-        role: user.role,
       },
     });
     res.status(200).json({

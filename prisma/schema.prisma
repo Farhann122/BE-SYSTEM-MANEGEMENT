@@ -20,7 +20,7 @@ model admin {
   password          String
   address           String
   phoneNumber       String
-  role              String
+  role              userRole
   createdAt         DateTime      @default(now())
   updatedAt         DateTime      @updatedAt
 }
@@ -30,11 +30,9 @@ model users {
   fullname          String        @unique
   address           String
   phoneNumber       String
-  role              String
+  role              userRole
   createdAt         DateTime      @default(now())
   updatedAt         DateTime      @updatedAt
-
-  product          products[]
 }
 
 model categories {
@@ -51,12 +49,10 @@ model products {
   name              String
   description       String?
   categoryId        Int
-  userId            Int
   stock             Int           @default(0)
   createdAt         DateTime      @default(now())
   updatedAt         DateTime      @updatedAt
   category          categories?   @relation(fields: [categoryId],references: [id])
-  user              users         @relation(fields: [userId],references: [id])
 
   userPrice         userPrice[]
 }
@@ -64,11 +60,18 @@ model products {
 model userPrice {
   id                Int           @id @default(autoincrement())
   productId         Int
-  role              String
+  role              userRole
   price             Int
   createdAt         DateTime      @default(now())
   updatedAt         DateTime      @updatedAt
   product           products      @relation(fields: [productId],references: [id])
 
   @@unique([productId,role])
+}
+
+enum userRole {
+  ADMIN
+  DISTRIBUTOR
+  RESELLER
+  MEMBER
 }

@@ -4,8 +4,9 @@ import db from "../../connector";
 async function updateUser(req = request, res = response) {
   try {
     const { id } = req.params;
-    const { fullname, address, phoneNumber } = req.body;
+    const { fullname, address, phoneNumber, role } = req.body;
 
+    const roleUpper = role.toUpperCase();
     // cek apakah user ada
     const findUser = await db.users.findUnique({
       where: {
@@ -28,7 +29,7 @@ async function updateUser(req = request, res = response) {
         fullname,
         address,
         phoneNumber,
-        role: findUser.role,
+        role: roleUpper,
         updatedAt: new Date(),
       },
     });
