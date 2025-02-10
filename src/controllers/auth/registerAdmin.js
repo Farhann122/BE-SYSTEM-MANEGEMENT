@@ -13,8 +13,6 @@ async function register(req = request, res = response) {
     role,
   } = req.body;
 
-  const roleUpper = role.toUpperCase();
-
   if (password !== confirmPassword) {
     return res.status(400).json({
       msg: "passwords do not match",
@@ -27,8 +25,14 @@ async function register(req = request, res = response) {
     // validasi username dan email
     const existUsernameAndEmail = await db.admin.findFirst({
       where: {
-        username: username,
-        email: email,
+        OR: [
+          {
+            username,
+          },
+          {
+            email,
+          },
+        ],
       },
     });
 
@@ -46,7 +50,7 @@ async function register(req = request, res = response) {
         password: hashPassword,
         address,
         phoneNumber,
-        role: roleUpper,
+        role: role.toUpperCase(),
       },
     });
     res.status(200).json({

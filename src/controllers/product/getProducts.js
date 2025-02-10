@@ -5,7 +5,20 @@ async function getProducts(req = request, res = response) {
   try {
     const response = await db.products.findMany({
       include: {
-        userPrice: true,
+        category: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+        userPrice: {
+          select: {
+            id: true,
+            productId: true,
+            role: true,
+            price: true,
+          },
+        },
       },
     });
     res.status(200).json({
