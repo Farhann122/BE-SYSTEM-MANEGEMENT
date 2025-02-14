@@ -8,11 +8,7 @@ import { deleteProduct } from "../controllers/product/deleteProduct";
 const productRoute = new Router();
 
 // create product
-productRoute.post(
-  "/api/create/product/:categoryId",
-  validateUser,
-  createProduct
-);
+productRoute.post("/api/create/product", validateUser, createProduct);
 
 // get all product
 productRoute.get("/api/products", validateUser, getProducts);

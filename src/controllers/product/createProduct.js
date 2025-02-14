@@ -3,15 +3,27 @@ import db from "../../connector";
 
 async function createProduct(req = request, res = response) {
   try {
-    const { categoryId } = req.params;
-    const { name, description, stock, prices } = req.body;
+    const { categoryName, name, description, stock, prices } = req.body;
+
+    const category = await db.categories.findFirst({
+      where: {
+        name: categoryName,
+      },
+    });
+
+    if (!category) {
+      return res.status(400).json({
+        status: "failed",
+        msg: `Category ${categoryName} not found`,
+      });
+    }
 
     const product = await db.products.create({
       data: {
         name,
         description,
         stock,
-        categoryId: parseInt(categoryId),
+        categoryId: category.id,
       },
     });
 
