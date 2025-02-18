@@ -4,6 +4,8 @@ import { validateUser } from "../middleware/validateUser";
 import { getProducts } from "../controllers/product/getProducts";
 import { updateProduct } from "../controllers/product/updateProduct";
 import { deleteProduct } from "../controllers/product/deleteProduct";
+import { getAllProductIN } from "../controllers/product/getAllProductIN";
+import { getProductINById } from "../controllers/product/getProductINbyId";
 
 const productRoute = new Router();
 
@@ -22,5 +24,11 @@ productRoute.delete(
   validateUser,
   deleteProduct
 );
+
+// get all product in
+productRoute.get("/api/products/in", validateUser, getAllProductIN);
+
+// get product in by id
+productRoute.get("/api/product/in/:productId", validateUser, getProductINById);
 
 export default productRoute;

@@ -34,7 +34,7 @@ async function createCategory(req = request, res = response) {
     });
     res.status(200).json({
       status: "success",
-      msg: "Create category success",
+      msg: "Create category successfully",
       data: response,
     });
   } catch (error) {

@@ -19,6 +19,13 @@ async function deleteProduct(req = request, res = response) {
       });
     }
 
+    // hapus semua riwayat stock di stockHistory
+    await db.stockHistory.deleteMany({
+      where: {
+        productId: parseInt(productId),
+      },
+    });
+
     // hapus semua harga dari userPrice
     await db.userPrice.deleteMany({
       where: {

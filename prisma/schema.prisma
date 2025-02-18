@@ -55,6 +55,7 @@ model products {
   category          categories?   @relation(fields: [categoryId],references: [id])
 
   userPrice         userPrice[]
+  stockHistories    stockHistory[]
 }
 
 model userPrice {
@@ -67,6 +68,16 @@ model userPrice {
   product           products      @relation(fields: [productId],references: [id])
 
   @@unique([productId,role])
+}
+
+model stockHistory {
+  id                Int           @id @default(autoincrement())
+  productId         Int
+  oldStock          Int
+  newStock          Int
+  changeAt          DateTime      @default(now())
+
+  product           products      @relation(fields: [productId],references: [id])
 }
 
 enum userRole {

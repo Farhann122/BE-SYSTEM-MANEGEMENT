@@ -31,7 +31,7 @@ async function createUser(req = request, res = response) {
     });
     res.status(200).json({
       status: "success",
-      msg: "Create user success",
+      msg: "Create user successfully",
       data: response,
     });
   } catch (error) {

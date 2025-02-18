@@ -23,7 +23,7 @@ async function getProducts(req = request, res = response) {
     });
     res.status(200).json({
       status: "success",
-      msg: "Get all products success",
+      msg: "Get all products successfully",
       data: response,
     });
   } catch (error) {

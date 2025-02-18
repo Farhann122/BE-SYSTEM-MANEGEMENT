@@ -14,7 +14,7 @@ async function getUsers(req = request, res = response) {
     });
     res.status(200).json({
       status: "success",
-      msg: "Get all users success",
+      msg: "Get all users successfully",
       data: response,
     });
   } catch (error) {

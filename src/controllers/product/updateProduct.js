@@ -34,6 +34,8 @@ async function updateProduct(req = request, res = response) {
       });
     }
 
+    const oldStock = findProduct.stock;
+
     // update product dengan categoryId yang ditemukan
     const updateProduct = await db.products.update({
       where: {
@@ -45,6 +47,14 @@ async function updateProduct(req = request, res = response) {
         stock,
         categoryId: category.id,
         updatedAt: new Date(),
+      },
+    });
+
+    await db.stockHistory.create({
+      data: {
+        productId: updateProduct.id,
+        oldStock: oldStock,
+        newStock: stock,
       },
     });
 
