@@ -6,6 +6,8 @@ import { updateProduct } from "../controllers/product/updateProduct";
 import { deleteProduct } from "../controllers/product/deleteProduct";
 import { getAllProductIN } from "../controllers/product/getAllProductIN";
 import { getProductINById } from "../controllers/product/getProductINbyId";
+import { getAllProductOUT } from "../controllers/product/getAllProductOUT";
+import { getProductOUTById } from "../controllers/product/getProductOUTById";
 
 const productRoute = new Router();
 
@@ -30,5 +32,15 @@ productRoute.get("/api/products/in", validateUser, getAllProductIN);
 
 // get product in by id
 productRoute.get("/api/product/in/:productId", validateUser, getProductINById);
+
+// get all product out
+productRoute.get("/api/products/out", validateUser, getAllProductOUT);
+
+// get product out by id
+productRoute.get(
+  "/api/product/out/:productId",
+  validateUser,
+  getProductOUTById
+);
 
 export default productRoute;

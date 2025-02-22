@@ -33,6 +33,8 @@ model users {
   role              userRole
   createdAt         DateTime      @default(now())
   updatedAt         DateTime      @updatedAt
+
+  order             orders[]
 }
 
 model categories {
@@ -52,10 +54,12 @@ model products {
   stock             Int           @default(0)
   createdAt         DateTime      @default(now())
   updatedAt         DateTime      @updatedAt
+
   category          categories?   @relation(fields: [categoryId],references: [id])
 
   userPrice         userPrice[]
   stockHistories    stockHistory[]
+  orderItems        orderItems[]
 }
 
 model userPrice {
@@ -65,6 +69,7 @@ model userPrice {
   price             Int
   createdAt         DateTime      @default(now())
   updatedAt         DateTime      @updatedAt
+  
   product           products      @relation(fields: [productId],references: [id])
 
   @@unique([productId,role])
@@ -78,6 +83,29 @@ model stockHistory {
   changeAt          DateTime      @default(now())
 
   product           products      @relation(fields: [productId],references: [id])
+}
+
+model orderItems {
+  id                Int           @id @default(autoincrement())
+  orderId           Int
+  productId         Int
+  quantity          Int           @default(1)
+  subTotal          Int           @default(0)
+  createdAt         DateTime      @default(now())
+  updatedAt         DateTime      @updatedAt
+
+  order             orders        @relation(fields: [orderId],references: [id])
+  product           products      @relation(fields: [productId],references: [id])
+}
+
+model orders {
+  id                Int           @id @default(autoincrement())
+  userId            Int
+  totalPrice        Int
+  createdAt         DateTime      @default(now())
+
+  user              users         @relation(fields: [userId],references: [id])
+  orderItems        orderItems[]
 }
 
 enum userRole {
